@@ -239,8 +239,13 @@ class ScannerWindow:
         # Remember to ALLOW LESS SECURE APPS on Gmail account for program to work
         # Define Message Content
         recipient = self.email
-        sender = "dan.gold0110@gmail.com"
         subject = "Scan Report"
+        # Getting Email Credentials from Environment Variables
+        try:
+            email_user = os.environ['MVP_EMAIL']
+            email_pass = os.environ['MVP_PASS']
+        except KeyError:
+            print("Unable to get OS Environ Credentials")
         # Creating Body Message
         body = "Trusted Devices Found<br>"
         # Adding Trusted Devices found
@@ -256,20 +261,16 @@ class ScannerWindow:
         # Make Message
         msg = MIMEText(body, 'html') # Define the body content AND that it will be HTML
         msg['Subject'] = subject
-        msg['From'] = sender
+        msg['From'] = email_user
         msg['To'] = recipient
         # Attempt to get email credentials from IDE - stored in this format to hide credentials when upload to Github
-        try:
-            email_user = os.environ['MVP_EMAIL']
-            email_pass = os.environ['MVP_PASS']
-        except KeyError:
-            print("Unable to get OS Environ Credentials")
+
         # Sending
         try:
             smtp = smtplib.SMTP("smtp.gmail.com", 587)
             smtp.starttls()
             smtp.login(email_user, email_pass)
-            send = smtp.sendmail(sender, recipient, msg.as_string())
+            send = smtp.sendmail(email_user, recipient, msg.as_string())
             smtp.quit()
             print("Email Sent")
         # Different Exceptions

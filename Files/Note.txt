@@ -1,0 +1,2 @@
+At the start of the scan process, the "Trusted.txt" and "Suspicious.txt" files are created.
+If you delete the contents of the files and run the process without deleting the files, it causes an error.
