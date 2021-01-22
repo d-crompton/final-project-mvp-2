@@ -14,10 +14,12 @@ def load_trusted_file():
         for line in trust_file:  # Loop through file's lines
             adj_line = line[:-1]  # Remove the \n from the end
             device = adj_line.split(',')  # Turn into an array
+            print(device)
             trusted_devices.append(
                 Trusted_Device.TrustedDevice(device[0], device[1], device[2], device[3], device[4])
             )  # Add to local list of trusted devices
         trust_file.close()
+
     except FileNotFoundError:
         # Open in write mode to create file, if not available
         trust_file = open("Files\\trusted.txt", "w+")

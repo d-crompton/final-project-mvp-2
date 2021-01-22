@@ -224,7 +224,7 @@ class ScannerWindow:
 
     # Device Information Button
     def open_info_window(self, device):
-        window = Device_Info_Window.InfoWindow(device)
+        window = Device_Info_Window.InfoWindow(device, "scanner")
 
     # Button press that opens Trusted Devices Window
     def open_trusted_window(self):
@@ -255,7 +255,7 @@ class ScannerWindow:
         # Break between lists
         body = body + "<br>Suspicious Devices Found<br>"
         # Adding Suspicious Devices found
-        for devicee in self.found_suspicious:
+        for device in self.found_suspicious:
             body = body + ">" + device.get_last_ip() + ", " + device.get_mac() + \
                    ", " + device.get_manufacturer() + ", " + device.get_os() + "<br>"
         # Make Message
@@ -278,5 +278,4 @@ class ScannerWindow:
             print("Server didn't respond")
         except smtplib.SMTPAuthenticationError:  # The server didn't accept the Username/Password
             print("The server didn't accept the Username/Password combination")
-        except:  # Catches any Errors I have missed
-            print("Email Failed")
+
